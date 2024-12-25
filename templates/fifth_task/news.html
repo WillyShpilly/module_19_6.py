@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+      {% for post in page_posts %}
+
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
+          <p>{{ post.created_at }}</p>
+
+      {% endfor %}
+
+            {% if page_posts.has_previous %}
+                <a href="?page=1&elements_in_page={{ elements_in_page }}">В Начало</a>
+
+                <a href="?page={{ page_obj.previous_page_number }}&elements_in_page={{ elements_in_page }}">Назад</a>
+            {% endif %}
+
+                Стр. {{ page_posts.number }} из {{ page_posts.paginator.num_pages }}
+
+
+            {% if page_posts.has_next %}
+                <a href="?page={{ page_posts.next_page_number }}&elements_in_page={{ elements_in_page }}">Вперед</a>
+
+                <a href="?page={{ page_obj.paginator.num_pages }}&elements_in_page={{ elements_in_page }}">В Конец</a>
+            {% endif %}
+
+        <form method="get">
+            <select hidden name="page"><option selected value="{{ page_posts.number }}"></option></select>
+            <select name="elements_in_page">
+                <option selected disabled>Количество элементов на странице</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+                <option value="12">12</option>
+                <option value="15">15</option>
+            </select>
+            <input type="submit" value="Применить"></input>
+        </form>
+    </body>
+</html>
